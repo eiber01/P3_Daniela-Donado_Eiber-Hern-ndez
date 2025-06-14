@@ -7,9 +7,7 @@ def main():
     
     carpeta_imagenes = os.getcwd()
     archivo_dicom = DICOM()
-    pacientes = {} 
-    medios = {}  
-    
+
     while True:
         print("\n=== Menú Principal ===")
         print("a) Procesar carpeta DICOM")

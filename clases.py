@@ -52,13 +52,13 @@ class DICOM:
 
 
 class Paciente:
-    def _init_(self, nombre, edad, ID, imagen_asociada):
+    def __init__(self, nombre, edad, ID, imagen_asociada):
         self.nombre = nombre
         self.edad = edad
         self.id = ID
         self.imagen = imagen_asociada
 
-    def _str_(self):
+    def __str__(self):
         return f"Paciente(nombre={self.nombre}, edad={self.edad}, id={self.id})"
 
 def translacion(imagen, dx, dy):
@@ -74,16 +74,17 @@ class gestion_imagen:
         self.ruta = ruta
 
     def binarizar(self, metodo, umbral=127):
-            tipos = {
-                'binario': cv2.THRESH_BINARY,
-                'binario_invertido': cv2.THRESH_BINARY_INV,
-                'truncado': cv2.THRESH_TRUNC,
-                'tozero': cv2.THRESH_TOZERO,
-                'tozero_invertido': cv2.THRESH_TOZERO_INV
-            }        
+        tipos = {
+            'binario': cv2.THRESH_BINARY,
+            'binario_invertido': cv2.THRESH_BINARY_INV,
+            'truncado': cv2.THRESH_TRUNC,
+            'tozero': cv2.THRESH_TOZERO,
+            'tozero_invertido': cv2.THRESH_TOZERO_INV
+        }        
     def transformar_morfologia(self, kernel_size):
          kernel = np.ones((kernel_size, kernel_size), np.uint8)
          self.imagen = cv2.morphologyEx(self.imagen, cv2.MORPH_OPEN, kernel)
+    
     def modificar_forma(self, forma, texto, salida):
         color = (0, 0, 0)
         img_color = cv2.cvtColor(self.imagen, cv2.COLOR_GRAY2BGR)
