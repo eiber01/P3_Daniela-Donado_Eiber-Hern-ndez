@@ -33,4 +33,23 @@ def main():
             if not prueba or prueba['type'] != 'DICOM':
                 print("Esa carpeta aún no se ha procesado en la opción 'a'.")
                 continue
+            
+            hdr    = prueba['header']
+            volumen = prueba['volume']
+
+            de_name = hdr.get('PatientName', None)
+            nombre = str(de_name) if de_name else 'Anon'
+
+            de_id   = hdr.get('PatientID', None)
+            pid     = str(de_id) if de_id else 'N/A'
+
+            de_age  = hdr.get('PatientAge', None)
+            edad    = str(de_age) if de_age else 'N/A'
+
+            p = Paciente(nombre, edad, pid, volumen)
+            pacientes[pid] = p
+
+            medios[f"paciente_{pid}"] = prueba
+            print(f"Paciente creado: {p}")
+        
         
