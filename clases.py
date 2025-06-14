@@ -72,3 +72,13 @@ class gestion_imagen:
         
         self.imagen = cv2.imread(ruta, 0)
         self.ruta = ruta
+
+    def binarizar(self, metodo, umbral=127):
+            tipos = {
+                'binario': cv2.THRESH_BINARY,
+                'binario_invertido': cv2.THRESH_BINARY_INV,
+                'truncado': cv2.THRESH_TRUNC,
+                'tozero': cv2.THRESH_TOZERO,
+                'tozero_invertido': cv2.THRESH_TOZERO_INV
+            }        
+            
