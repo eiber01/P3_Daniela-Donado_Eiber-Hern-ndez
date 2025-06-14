@@ -66,3 +66,9 @@ def translacion(imagen, dx, dy):
     M = np.float32([[1, 0, dx], [0, 1, dy]])
     trasladada = cv2.warpAffine(imagen, M, (w, h))
     return trasladada
+
+class gestion_imagen:
+    def __init__(self, ruta):
+        
+        self.imagen = cv2.imread(ruta, 0)
+        self.ruta = ruta
