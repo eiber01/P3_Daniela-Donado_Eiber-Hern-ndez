@@ -17,3 +17,7 @@ class DICOM:
         if not archivos:
             print(f"No encontré DICOMs en {ruta}")
             return None, None
+
+        slices = [pydicom.dcmread(f) for f in archivos]  
+        slices.sort(key=lambda s: int(getattr(s, 'InstanceNumber', 0)))
+        
