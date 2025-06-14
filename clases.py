@@ -99,4 +99,7 @@ class gestion_imagen:
 
         cv2.putText(img_color, texto, (30, alto - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
         cv2.imwrite(salida, img_color)
-                    
+def listar_imagenes_png_jpg(carpeta):
+    return [f for f in os.listdir(carpeta) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+
+                 
