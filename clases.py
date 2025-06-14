@@ -49,3 +49,57 @@ class DICOM:
 
         plt.tight_layout()
         plt.show()
+
+
+class Paciente:
+    def _init_(self, nombre, edad, ID, imagen_asociada):
+        self.nombre = nombre
+        self.edad = edad
+        self.id = ID
+        self.imagen = imagen_asociada
+
+    def _str_(self):
+        return f"Paciente(nombre={self.nombre}, edad={self.edad}, id={self.id})"
+
+def translacion(imagen, dx, dy):
+    h, w = imagen.shape
+    M = np.float32([[1, 0, dx], [0, 1, dy]])
+    trasladada = cv2.warpAffine(imagen, M, (w, h))
+    return trasladada
+
+class gestion_imagen:
+    def __init__(self, ruta):
+        
+        self.imagen = cv2.imread(ruta, 0)
+        self.ruta = ruta
+
+    def binarizar(self, metodo, umbral=127):
+            tipos = {
+                'binario': cv2.THRESH_BINARY,
+                'binario_invertido': cv2.THRESH_BINARY_INV,
+                'truncado': cv2.THRESH_TRUNC,
+                'tozero': cv2.THRESH_TOZERO,
+                'tozero_invertido': cv2.THRESH_TOZERO_INV
+            }        
+    def transformar_morfologia(self, kernel_size):
+         kernel = np.ones((kernel_size, kernel_size), np.uint8)
+         self.imagen = cv2.morphologyEx(self.imagen, cv2.MORPH_OPEN, kernel)
+    def modificar_forma(self, forma, texto, salida):
+        color = (0, 0, 0)
+        img_color = cv2.cvtColor(self.imagen, cv2.COLOR_GRAY2BGR)
+        alto, ancho = self.imagen.shape
+        centro_x, centro_y = ancho // 2, alto // 2
+
+        if forma == 'circulo':
+            cv2.circle(img_color, (centro_x, centro_y), 60, color, 2)
+        else:
+            cv2.rectangle(img_color, (centro_x-60, centro_y-30), (centro_x+60, centro_y+30), color, 2)
+
+        cv2.rectangle(img_color, (20, alto - 50), (ancho - 20, alto - 20), (255, 255, 255), -1)
+
+        cv2.putText(img_color, texto, (30, alto - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+        cv2.imwrite(salida, img_color)
+def listar_imagenes_png_jpg(carpeta):
+    return [f for f in os.listdir(carpeta) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+
+                 
