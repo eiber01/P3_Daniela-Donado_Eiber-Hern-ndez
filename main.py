@@ -26,4 +26,11 @@ def main():
             if vol is not None:
                 medios[carpeta] = {'type': 'DICOM', 'volume': vol, 'header': hdr}
                 print(f"Carpeta DICOM procesada y guardada en medios bajo clave '{carpeta}'")
+                
+        elif opc == 'b':
+            carpeta = input("Carpeta DICOM (procesada) para crear paciente: ")
+            prueba = medios.get(carpeta)
+            if not prueba or prueba['type'] != 'DICOM':
+                print("Esa carpeta aún no se ha procesado en la opción 'a'.")
+                continue
         
