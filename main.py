@@ -123,3 +123,29 @@ def main():
             print("4) Ingresar una opción diferente")
             opt = input("Elige una opción (1-4): ")
         
+            if opt == '1':
+                dx, dy = -100, 100
+            elif opt == '2':
+                dx, dy = -243, 15
+            elif opt == '3':
+                dx, dy = 0, 400
+            elif opt == '4':
+                dx = int(input("Valor de traslación en X: "))
+                dy = int(input("Valor de traslación en Y: "))
+
+            trasladada = translacion(corte_rot, dx, dy)
+
+            plt.figure(figsize=(10, 5))
+            plt.subplot(1, 2, 1)
+            plt.imshow(corte_rot, cmap='gray')
+            plt.title("Original")
+
+            plt.subplot(1, 2, 2)
+            plt.imshow(trasladada, cmap='gray')
+            plt.title(f"Traslación ({dx},{dy})")
+            plt.tight_layout()
+            plt.show()
+
+            nombre_imagen = f"imagen_trasladada_dx{dx}_dy{dy}.png"
+            cv2.imwrite(nombre_imagen, trasladada)
+            print(f"Imagen trasladada guardada como: {nombre_imagen}")
