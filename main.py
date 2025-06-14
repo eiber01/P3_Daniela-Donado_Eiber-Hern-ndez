@@ -149,3 +149,16 @@ def main():
             nombre_imagen = f"imagen_trasladada_dx{dx}_dy{dy}.png"
             cv2.imwrite(nombre_imagen, trasladada)
             print(f"Imagen trasladada guardada como: {nombre_imagen}")
+            
+            
+        elif opc == 'f':
+            print("Gracias por usar el sistema")
+            break
+        
+        else:
+            print("Opción inválida, intente de nuevo.")
+
+
+if __name__ == '__main__':
+    main()
+            
