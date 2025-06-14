@@ -104,4 +104,22 @@ def main():
                 dic_archivos[f"procesada_{clave}_{int(time.time())}"] = salida
             else:
                 print("La clave no existe")
+                
+        elif opc == 'e':
+            carpeta = input("Carpeta DICOM procesada: ")
+            prueba = medios.get(carpeta)
+            if not prueba or prueba['type'] != 'DICOM':
+                print("La carpeta no se ha procesado")
+                continue
+
+            vol = prueba['volume']
+            corte = vol[:, :, vol.shape[2] // 2]  
+            corte_rot = np.rot90(corte)
+
+            print("Opciones de traslación:")
+            print("1) (-100, 100)")
+            print("2) (-243, 15)")
+            print("3) (0, 400)")
+            print("4) Ingresar una opción diferente")
+            opt = input("Elige una opción (1-4): ")
         
