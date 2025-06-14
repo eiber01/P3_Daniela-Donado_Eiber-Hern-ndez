@@ -51,5 +51,24 @@ def main():
 
             medios[f"paciente_{pid}"] = prueba
             print(f"Paciente creado: {p}")
+            
+        elif opc == 'c':
+            imagenes = listar_imagenes_png_jpg(carpeta_imagenes)
+
+            print("\nImágenes disponibles:")
+            for i, img in enumerate(imagenes):
+                print(f"{i+1}. {img}")
+
+            try:
+                num = int(input("Seleccione una imagen por número: ")) - 1
+                if 0 <= num < len(imagenes):
+                    ruta = os.path.join(carpeta_imagenes, imagenes[num])
+                    clave = input("Nombre clave para guardar esta imagen: ")
+                    dic_archivos[clave] = ruta
+                    print(f" Imagen '{imagenes[num]}' cargada con clave '{clave}'")
+                else:
+                    print(" Selección inválida")
+            except ValueError:
+                print(" Debe ingresar un número")
         
         
