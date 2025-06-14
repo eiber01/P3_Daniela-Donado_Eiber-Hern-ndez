@@ -28,3 +28,24 @@ class DICOM:
 
         self.mostrar_planos(volume)
         return volume, header
+    
+    def mostrar_planos(self, volume):
+        x0, y0, z0 = np.array(volume.shape) // 2
+
+        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+        cortes = [
+            ('Plano transversal', volume[:, :, z0]),
+            ('Plano sagital',     volume[:, y0, :]),
+            ('Plano coronal',     volume[x0, :, :])
+        ]
+        
+        for ax, (titulo, slc) in zip(axes, cortes):
+        
+            slc_rot = np.rot90(slc)
+            ax.imshow(slc_rot, cmap='gray', aspect='auto')
+            ax.set_title(titulo)
+            ax.axis('on')
+
+        plt.tight_layout()
+        plt.show()
