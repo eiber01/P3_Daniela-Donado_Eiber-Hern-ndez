@@ -83,4 +83,20 @@ class gestion_imagen:
             }        
     def transformar_morfologia(self, kernel_size):
          kernel = np.ones((kernel_size, kernel_size), np.uint8)
-         self.imagen = cv2.morphologyEx(self.imagen, cv2.MORPH_OPEN, kernel)        
+         self.imagen = cv2.morphologyEx(self.imagen, cv2.MORPH_OPEN, kernel)
+    def modificar_forma(self, forma, texto, salida):
+        color = (0, 0, 0)
+        img_color = cv2.cvtColor(self.imagen, cv2.COLOR_GRAY2BGR)
+        alto, ancho = self.imagen.shape
+        centro_x, centro_y = ancho // 2, alto // 2
+
+        if forma == 'circulo':
+            cv2.circle(img_color, (centro_x, centro_y), 60, color, 2)
+        else:
+            cv2.rectangle(img_color, (centro_x-60, centro_y-30), (centro_x+60, centro_y+30), color, 2)
+
+        cv2.rectangle(img_color, (20, alto - 50), (ancho - 20, alto - 20), (255, 255, 255), -1)
+
+        cv2.putText(img_color, texto, (30, alto - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+        cv2.imwrite(salida, img_color)
+                    
