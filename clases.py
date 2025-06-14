@@ -81,4 +81,6 @@ class gestion_imagen:
                 'tozero': cv2.THRESH_TOZERO,
                 'tozero_invertido': cv2.THRESH_TOZERO_INV
             }        
-            
+    def transformar_morfologia(self, kernel_size):
+         kernel = np.ones((kernel_size, kernel_size), np.uint8)
+         self.imagen = cv2.morphologyEx(self.imagen, cv2.MORPH_OPEN, kernel)        
