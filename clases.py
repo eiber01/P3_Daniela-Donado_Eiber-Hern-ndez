@@ -21,3 +21,10 @@ class DICOM:
         slices = [pydicom.dcmread(f) for f in archivos]  
         slices.sort(key=lambda s: int(getattr(s, 'InstanceNumber', 0)))
         
+        volume = np.stack([s.pixel_array for s in slices], axis=-1)
+        header = slices[0]
+
+        self.almacenar[ruta] = {'volume': volume, 'header': header}
+
+        self.mostrar_planos(volume)
+        return volume, header
