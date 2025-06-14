@@ -20,3 +20,10 @@ def main():
         print("f) Salir")
         opc = input("Opción: ").lower()
         
+        if opc == 'a':
+            carpeta = input("Ruta carpeta DICOM: ")
+            vol, hdr = archivo_dicom.cargar_carpeta(carpeta)
+            if vol is not None:
+                medios[carpeta] = {'type': 'DICOM', 'volume': vol, 'header': hdr}
+                print(f"Carpeta DICOM procesada y guardada en medios bajo clave '{carpeta}'")
+        
