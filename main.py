@@ -1,4 +1,4 @@
-
+from clases import *
 dic_archivos = {}
 pacientes = {} 
 medios = {}
@@ -19,4 +19,4 @@ def main():
         print("e) Aplicar translación")
         print("f) Salir")
         opc = input("Opción: ").lower()
-        
+      

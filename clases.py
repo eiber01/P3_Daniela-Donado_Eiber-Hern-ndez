@@ -49,3 +49,20 @@ class DICOM:
 
         plt.tight_layout()
         plt.show()
+
+
+class Paciente:
+    def _init_(self, nombre, edad, ID, imagen_asociada):
+        self.nombre = nombre
+        self.edad = edad
+        self.id = ID
+        self.imagen = imagen_asociada
+
+    def _str_(self):
+        return f"Paciente(nombre={self.nombre}, edad={self.edad}, id={self.id})"
+
+def translacion(imagen, dx, dy):
+    h, w = imagen.shape
+    M = np.float32([[1, 0, dx], [0, 1, dy]])
+    trasladada = cv2.warpAffine(imagen, M, (w, h))
+    return trasladada
