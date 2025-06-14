@@ -1,4 +1,14 @@
+
+dic_archivos = {}
+pacientes = {} 
+medios = {}
+
 def main():
+    
+    carpeta_imagenes = os.getcwd()
+    archivo_dicom = DICOM()
+    pacientes = {} 
+    medios = {}  
     
     while True:
         print("\n=== Menú Principal ===")
@@ -9,3 +19,4 @@ def main():
         print("e) Aplicar translación")
         print("f) Salir")
         opc = input("Opción: ").lower()
+        
