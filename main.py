@@ -71,4 +71,37 @@ def main():
             except ValueError:
                 print(" Debe ingresar un número")
         
+        elif opc == 'd':
+            clave = input("Clave de la imagen cargada: ")
+            if clave in dic_archivos:
+                ruta = dic_archivos[clave]
+                imagen_modificar = gestion_imagen(ruta)
+
+                metodos = ['binario', 'binario_invertido', 'truncado', 'tozero', 'tozero_invertido']
+                while True:
+                    print("Selecciona el método:", ", ".join(metodos))
+                    metodo = input("Método: ").strip().lower()
+                    if metodo in metodos:
+                        break
+                    else:
+                        print(" Método inválido. Intenta nuevamente.")
+
+                umbral = int(input("Valor de umbral (0-255): "))
+                imagen_modificar.binarizar(metodo, umbral)
+
+                kernel = int(input("Tamaño del kernel: "))
+                
+                imagen_modificar.transformar_morfologia(kernel)
+
+                forma = input("¿Forma a dibujar (circulo/cuadrado)?: ").strip().lower()
+
+                texto = f"Imagen binarizada: {metodo}  Umbral: {umbral}  Kernel: {kernel}"
+
+                salida = f"procesada_{clave}_{int(time.time())}.png"
+
+                imagen_modificar.modificar_forma(forma, texto, salida)
+                print(f" Imagen final guardada como: {salida}")
+                dic_archivos[f"procesada_{clave}_{int(time.time())}"] = salida
+            else:
+                print("La clave no existe")
         
