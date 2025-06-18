@@ -48,6 +48,9 @@ class DICOM:
             ax.axis('on')
 
         plt.tight_layout()
+        nombre_archivo = f"cortes_DICOM_{int(time.time())}.png"
+        plt.savefig(nombre_archivo, dpi=300)
+        print(f"Cortes guardados como: {nombre_archivo}")
         plt.show()
 
 
@@ -73,14 +76,19 @@ class gestion_imagen:
         self.imagen = cv2.imread(ruta, 0)
         self.ruta = ruta
 
-    def binarizar(self, metodo, umbral=127):
+    def binarizar(self, metodo, umbral=127 ,max_val=255):
         tipos = {
             'binario': cv2.THRESH_BINARY,
             'binario_invertido': cv2.THRESH_BINARY_INV,
             'truncado': cv2.THRESH_TRUNC,
             'tozero': cv2.THRESH_TOZERO,
             'tozero_invertido': cv2.THRESH_TOZERO_INV
-        }        
+            
+        }   
+        tipo_cv = tipos.get(metodo, cv2.THRESH_BINARY)
+        _, binarizada = cv2.threshold(self.imagen, umbral, max_val, tipo_cv)
+        self.imagen = binarizada     
+
     def transformar_morfologia(self, kernel_size):
          kernel = np.ones((kernel_size, kernel_size), np.uint8)
          self.imagen = cv2.morphologyEx(self.imagen, cv2.MORPH_OPEN, kernel)
